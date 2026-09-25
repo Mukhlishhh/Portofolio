@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nama Anda — Portofolio</title>
+<title>Ahmad Mukhlish Nugraha — Portofolio</title>
 <meta name="description" content="Portofolio pribadi — beranda, karya, dan kontak.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,7 +57,7 @@
 
   a{ color: inherit; text-decoration: none; }
 
-  img{ max-width: 100%; display: block; }
+  img{ max-width: 100%; display: block; object-fit: cover; }
 
   :focus-visible{
     outline: 2px solid var(--gold);
@@ -202,7 +202,7 @@
 
   .hero-desc{
     margin-top: 1.8rem;
-    max-width: 46ch;
+    max-width: 48ch;
     color: var(--muted-on-dark);
     font-size: 1.02rem;
   }
@@ -246,18 +246,12 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    overflow: hidden;
   }
-  .hero-frame .initials{
-    font-family: var(--font-display);
-    font-size: clamp(3rem, 8vw, 5rem);
-    color: var(--muted-on-dark);
-    letter-spacing: 0.02em;
-  }
-  .hero-frame .frame-label{
-    position: absolute;
-    bottom: 0.9rem;
-    font-size: 0.75rem;
-    color: var(--muted-on-dark);
+  .hero-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   @media (prefers-reduced-motion: no-preference){
@@ -301,6 +295,11 @@
     justify-content: center;
     color: var(--muted-on-light);
     font-size: 0.85rem;
+    overflow: hidden;
+  }
+  .project-thumb img {
+    width: 100%;
+    height: 100%;
   }
 
   .project-body{
@@ -496,9 +495,9 @@
           <span>Selamat datang di portofolio saya</span>
         </div>
         <h1>Halo, saya <em>Ahmad Mukhlish Nugraha</em></h1>
-        <p class="hero-role">Fullstack Developer</p>
+        <p class="hero-role">Pelajar PPLG & Calon Software Developer</p>
         <p class="hero-desc">
-          Saya Siswa di SMK NUSANTARA 1, saya bercita cita untuk kuliah di universitas jepang, dan dibawah ini ada beberapa pencapaian saya.
+          Sebagai siswa di SMK Nusantara 1 Kota Tangerang, saya adalah individu yang mengutamakan kedalaman pemahaman di atas kecepatan. Pendekatan saya yang teliti memastikan setiap baris kode C++, kueri database SQL, hingga alur sirkuit mikrokontroler yang saya bangun memiliki struktur yang kuat dari dasarnya. Saya percaya bahwa dedikasi, kesabaran dalam trial-and-error, serta pantang menyerah adalah kunci utama untuk menciptakan inovasi teknologi yang berfungsi optimal.
         </p>
         <div class="hero-actions">
           <a href="#portofolio" class="btn btn-primary">Lihat Portofolio</a>
@@ -506,7 +505,6 @@
         </div>
       </div>
       <div class="hero-frame reveal">
-        <!-- Ganti dengan <img src="foto-anda.jpg" alt="Foto Nama Anda"> -->
         <img src="orangganteng.jpeg" alt="Ahmad Mukhlish Nugraha">
       </div>
     </div>
@@ -522,36 +520,44 @@
     <div class="project-grid">
 
       <div class="project-card">
-        <div class="project-thumb"><img src="ranking1.jpeg" alt="Ranking 1 Dalam Kelas"></div>
+        <div class="project-thumb"><img src="ranking1.jpeg" alt="Ranking 1 Dalam Kelas" onerror="this.style.display='none'"></div>
         <div class="project-body">
           <span class="project-tag">Akademik</span>
-          <h3>Ranking 1 Dalam Kelas</h3>
-          <p>Saya mendapatkan ranking 1 di kelas X RPL, menunjukkan prestasi akademik yang baik.</p>
+          <h3>Ranking 1 Kelas PPLG</h3>
+          <p>Meraih peringkat 1 di kelas sebagai hasil dari metode belajar yang mendalam dan ketelitian fundamental. Prestasi ini membuktikan bahwa persistensi dalam memahami logika sistem jauh lebih berharga dari sekadar kecepatan.</p>
           <a href="#" class="project-link">Lihat detail</a>
         </div>
       </div>
 
       <div class="project-card">
-        <div class="project-thumb"><img src="iot_project.jpg" alt="Proyek IOT"></div>
+        <div class="project-thumb"><img src="iot_project.jpg" alt="Proyek IOT" onerror="this.style.display='none'"></div>
         <div class="project-body">
-          <span class="project-tag">IOT</span>
-          <h3>Proyek IOT</h3>
-          <p>Saya membuat IOT mobil yang bisa digerakan secara bluetooth melalui aplikasi di hp.</p>
+          <span class="project-tag">Internet of Things</span>
+          <h3>Proyek IoT Mobil Robotik</h3>
+          <p>Merakit dan memprogram prototipe mobil 4-motor menggunakan Arduino, L298N, dan Bluetooth HC-06. Proyek ini melatih kesabaran saya dalam memecahkan masalah kelistrikan dan menguji logika program hingga mobil berfungsi sempurna melalui smartphone.</p>
+          <a href="#" class="project-link">Lihat detail</a>
+        </div>
+      </div>
+      
+      <div class="project-card">
+        <div class="project-thumb"><img src="database_riset.jpg" alt="Riset dan Database" onerror="this.style.display='none'"></div>
+        <div class="project-body">
+          <span class="project-tag">Database & Riset</span>
+          <h3>Manajemen SQL & Riset UMKM</h3>
+          <p>Terbiasa merancang struktur tabel dan operasi CRUD yang presisi menggunakan MySQL dan Laragon. Saya juga berdedikasi menyusun proposal riset digitalisasi seperti aplikasi food delivery untuk mendukung UMKM kuliner lokal.</p>
           <a href="#" class="project-link">Lihat detail</a>
         </div>
       </div>
 
       <div class="project-card">
-        <div class="project-thumb"><img src="organisasi.jpg" alt="Kegiatan Organisasi"></div>
+        <div class="project-thumb"><img src="organisasi.jpg" alt="Kegiatan Organisasi" onerror="this.style.display='none'"></div>
         <div class="project-body">
           <span class="project-tag">Organisasi</span>
-          <h3>Kegiatan Organisasi</h3>
-          <p>Saya aktif dalam kegiatan organisasi sekolah, seperti menjadi ketua ekstrakurikuler dan mengikuti berbagai lomba.</p>
+          <h3>Kepanitiaan & Organisasi</h3>
+          <p>Dipercaya sebagai koordinator dan contact person utama turnamen E-Sports sekolah. Pengalaman ini mengasah keandalan, tanggung jawab, serta kemampuan komunikasi saya dalam mengelola acara secara konsisten.</p>
           <a href="#" class="project-link">Lihat detail</a>
         </div>
       </div>
-
-      <!-- Salin blok .project-card di atas untuk menambah proyek baru -->
 
     </div>
   </section>
@@ -565,15 +571,15 @@
 
     <div class="contact-grid">
       <div class="contact-info">
-        <p>Isi form di samping atau hubungi saya langsung lewat salah satu kanal berikut.</p>
+        <p>Pendekatan kerja yang teliti membuat saya siap menghadapi tantangan teknis. Hubungi saya untuk diskusi atau kolaborasi profesional melalui kanal berikut.</p>
         <ul class="contact-list">
           <li>
             <span class="label">Email</span>
-            <a href="mailto:nama@email.com">mukhlish110210@email.com</a>
+            <a href="mailto:mukhlish110210@email.com">mukhlish110210@email.com</a>
           </li>
           <li>
             <span class="label">Telepon</span>
-            <a href="tel:+6280000000000">+62 85186100211</a>
+            <a href="tel:+6285186100211">+62 85186100211</a>
           </li>
           <li>
             <span class="label">Kota </span>
@@ -656,7 +662,7 @@
     });
   });
 
-  // Validasi form kontak (sisi browser saja — lihat catatan di atas file ini)
+  // Validasi form kontak (sisi browser)
   const form = document.getElementById('contactForm');
   const status = document.getElementById('formStatus');
 
@@ -693,8 +699,6 @@
 
     if (!valid) return;
 
-    // Di sini Anda perlu menghubungkan ke layanan pengiriman email
-    // (mis. Formspree, EmailJS) atau backend Anda sendiri.
     status.textContent = 'Pesan terkirim! Saya akan segera menghubungi Anda kembali.';
     form.reset();
   });
