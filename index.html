@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nama Anda — Portofolio</title>
+<meta name="description" content="Portofolio pribadi — beranda, karya, dan kontak.">
+
+<!-- ====================================================
+     CARA PAKAI (baca ini dulu sebelum edit):
+     1. Ganti "Nama Anda" di seluruh file dengan nama Anda.
+     2. Isi bagian PORTOFOLIO dengan proyek/karya Anda sendiri.
+     3. Ganti alamat email & nomor di bagian KONTAK.
+     4. Form kontak di bawah baru validasi di sisi browser saja
+        (belum benar-benar mengirim email). Untuk membuatnya
+        benar-benar berfungsi, hubungkan ke layanan seperti
+        Formspree / EmailJS, atau ganti dengan link mailto.
+     ==================================================== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:        #12182B;
+    --ink-light:  #1E2540;
+    --paper:      #F3EEE1;
+    --paper-dim:  #E7DFC9;
+    --gold:       #B8863B;
+    --gold-bright:#D2A25C;
+    --sage:       #6E8068;
+    --muted-on-dark: #A9A28C;
+    --muted-on-light: #6B6656;
+    --border-light: rgba(18,24,43,0.14);
+    --border-dark:  rgba(243,238,225,0.18);
+
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'IBM Plex Sans', -apple-system, sans-serif;
+
+    --section-pad: clamp(4rem, 8vw, 7rem);
+    --side-pad: clamp(1.5rem, 6vw, 5rem);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+  }
+
+  body{
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,h2,h3{
+    font-family: var(--font-display);
+    margin: 0;
+    color: inherit;
+    line-height: 1.1;
+  }
+
+  p{ margin: 0; }
+
+  a{ color: inherit; text-decoration: none; }
+
+  img{ max-width: 100%; display: block; }
+
+  :focus-visible{
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+
+  .section{
+    padding: var(--section-pad) var(--side-pad);
+    scroll-margin-top: 76px;
+  }
+
+  .section-head{
+    max-width: 640px;
+    margin-bottom: 3rem;
+  }
+
+  .section-head .kicker{
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 0.6rem;
+  }
+
+  .section-head h2{
+    font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+    font-weight: 600;
+  }
+
+  /* ============ NAV ============ */
+  .nav{
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem var(--side-pad);
+    background: rgba(243,238,225,0.9);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .nav.is-scrolled{
+    border-bottom-color: var(--border-light);
+    box-shadow: 0 4px 18px rgba(18,24,43,0.06);
+  }
+
+  .nav-name{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.15rem;
+    letter-spacing: 0.01em;
+  }
+
+  .nav-links{
+    display: flex;
+    gap: 2.2rem;
+    list-style: none;
+    margin: 0; padding: 0;
+  }
+
+  .nav-links a{
+    position: relative;
+    font-size: 0.98rem;
+    padding-bottom: 4px;
+  }
+  .nav-links a::after{
+    content: "";
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 0%;
+    height: 1.5px;
+    background: var(--gold);
+    transition: width 0.25s ease;
+  }
+  .nav-links a:hover::after,
+  .nav-links a.is-active::after{
+    width: 100%;
+  }
+  .nav-links a.is-active{ color: var(--gold); }
+
+  .nav-toggle{
+    display: none;
+    background: none;
+    border: 1px solid var(--border-light);
+    padding: 0.4rem 0.6rem;
+    cursor: pointer;
+    font-size: 1.1rem;
+  }
+
+  /* ============ HERO / BERANDA ============ */
+  .hero{
+    background: var(--ink);
+    color: var(--paper);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: calc(var(--section-pad) + 3rem);
+  }
+
+  .hero-inner{
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 3rem;
+    align-items: center;
+    width: 100%;
+  }
+
+  .hero-eyebrow{
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.6rem;
+    color: var(--muted-on-dark);
+  }
+  .hero-eyebrow .rule{
+    width: 40px;
+    height: 1.5px;
+    background: var(--gold);
+  }
+
+  .hero h1{
+    font-size: clamp(2.4rem, 6vw, 4.4rem);
+    font-weight: 600;
+    max-width: 14ch;
+  }
+  .hero h1 em{
+    font-style: italic;
+    color: var(--gold-bright);
+    font-weight: 500;
+  }
+
+  .hero-role{
+    margin-top: 1.1rem;
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    color: var(--muted-on-dark);
+    font-family: var(--font-display);
+    font-style: italic;
+  }
+
+  .hero-desc{
+    margin-top: 1.8rem;
+    max-width: 46ch;
+    color: var(--muted-on-dark);
+    font-size: 1.02rem;
+  }
+
+  .hero-actions{
+    margin-top: 2.6rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn{
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.85rem 1.6rem;
+    border-radius: 2px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease;
+    display: inline-block;
+  }
+  .btn:hover{ transform: translateY(-2px); }
+
+  .btn-primary{
+    background: var(--gold);
+    color: var(--ink);
+  }
+  .btn-primary:hover{ background: var(--gold-bright); }
+
+  .btn-ghost{
+    border-color: var(--border-dark);
+    color: var(--paper);
+  }
+  .btn-ghost:hover{ border-color: var(--gold); color: var(--gold-bright); }
+
+  .hero-frame{
+    aspect-ratio: 1 / 1.05;
+    border: 1.5px dashed var(--border-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .hero-frame .initials{
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 5rem);
+    color: var(--muted-on-dark);
+    letter-spacing: 0.02em;
+  }
+  .hero-frame .frame-label{
+    position: absolute;
+    bottom: 0.9rem;
+    font-size: 0.75rem;
+    color: var(--muted-on-dark);
+  }
+
+  @media (prefers-reduced-motion: no-preference){
+    .reveal{
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.is-visible{
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ============ PORTOFOLIO ============ */
+  .portfolio{
+    background: var(--paper);
+  }
+
+  .project-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.2rem;
+  }
+
+  .project-card{
+    border: 1px solid var(--border-light);
+    background: var(--paper-dim);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-thumb{
+    aspect-ratio: 16 / 10;
+    background:
+      repeating-linear-gradient(135deg, rgba(18,24,43,0.06) 0 10px, transparent 10px 20px),
+      var(--paper);
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted-on-light);
+    font-size: 0.85rem;
+  }
+
+  .project-body{
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    flex: 1;
+  }
+
+  .project-tag{
+    font-size: 0.8rem;
+    color: var(--sage);
+    font-family: var(--font-display);
+    font-style: italic;
+  }
+
+  .project-body h3{
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .project-body p{
+    color: var(--muted-on-light);
+    font-size: 0.94rem;
+  }
+
+  .project-link{
+    margin-top: auto;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink);
+    border-bottom: 1px solid var(--gold);
+    align-self: flex-start;
+    padding-bottom: 2px;
+  }
+  .project-link:hover{ color: var(--gold); }
+
+  /* ============ KONTAK ============ */
+  .contact{
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .contact-grid{
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 3.5rem;
+  }
+
+  .contact-info p{
+    color: var(--muted-on-dark);
+    max-width: 40ch;
+    margin-bottom: 2rem;
+  }
+
+  .contact-list{
+    list-style: none;
+    padding: 0; margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-list li{
+    display: flex;
+    gap: 0.9rem;
+    align-items: baseline;
+    border-bottom: 1px solid var(--border-dark);
+    padding-bottom: 1rem;
+  }
+
+  .contact-list .label{
+    width: 90px;
+    flex-shrink: 0;
+    color: var(--muted-on-dark);
+    font-size: 0.85rem;
+  }
+
+  .contact-list a:hover{ color: var(--gold-bright); }
+
+  form{
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+  }
+
+  .field{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .field label{
+    font-size: 0.88rem;
+    color: var(--muted-on-dark);
+  }
+
+  .field input,
+  .field textarea{
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border-dark);
+    padding: 0.6rem 0.2rem;
+    color: var(--paper);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    resize: vertical;
+  }
+  .field input:focus,
+  .field textarea:focus{
+    outline: none;
+    border-bottom-color: var(--gold);
+  }
+
+  .field .error{
+    font-size: 0.8rem;
+    color: #D98484;
+    min-height: 1em;
+  }
+
+  .form-status{
+    font-size: 0.92rem;
+    min-height: 1.2em;
+    color: var(--gold-bright);
+  }
+
+  /* ============ FOOTER ============ */
+  footer{
+    background: var(--ink);
+    color: var(--muted-on-dark);
+    padding: 1.6rem var(--side-pad) 2.4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border-dark);
+    font-size: 0.85rem;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+  footer a:hover{ color: var(--gold-bright); }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 860px){
+    .hero-inner{ grid-template-columns: 1fr; }
+    .hero-frame{ max-width: 260px; }
+    .contact-grid{ grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 720px){
+    .nav-links{
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      background: var(--paper);
+      flex-direction: column;
+      gap: 0;
+      border-bottom: 1px solid var(--border-light);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .nav-links.is-open{ max-height: 240px; }
+    .nav-links li{ border-top: 1px solid var(--border-light); }
+    .nav-links a{
+      display: block;
+      padding: 1rem var(--side-pad);
+    }
+    .nav-links a::after{ display: none; }
+    .nav-toggle{ display: block; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav" id="siteNav">
+  <a href="#beranda" class="nav-name">Nama Anda</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Buka menu navigasi" aria-expanded="false">☰</button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#beranda" data-nav>Beranda</a></li>
+    <li><a href="#portofolio" data-nav>Portofolio</a></li>
+    <li><a href="#kontak" data-nav>Kontak</a></li>
+  </ul>
+</header>
+
+<main>
+
+  <!-- ================= BERANDA ================= -->
+  <section class="section hero" id="beranda">
+    <div class="hero-inner">
+      <div class="reveal">
+        <div class="hero-eyebrow">
+          <span class="rule"></span>
+          <span>Selamat datang di portofolio saya</span>
+        </div>
+        <h1>Halo, saya <em>Ahmad Mukhlish Nugraha</em></h1>
+        <p class="hero-role">Fullstack Developer</p>
+        <p class="hero-desc">
+          Saya Siswa di SMK NUSANTARA 1, saya bercita cita untuk kuliah di universitas jepang, dan dibawah ini ada beberapa pencapaian saya.
+        </p>
+        <div class="hero-actions">
+          <a href="#portofolio" class="btn btn-primary">Lihat Portofolio</a>
+          <a href="#kontak" class="btn btn-ghost">Hubungi Saya</a>
+        </div>
+      </div>
+      <div class="hero-frame reveal">
+        <!-- Ganti dengan <img src="foto-anda.jpg" alt="Foto Nama Anda"> -->
+        <img src="orangganteng.jpeg" alt="Ahmad Mukhlish Nugraha">
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PORTOFOLIO ================= -->
+  <section class="section portfolio" id="portofolio">
+    <div class="section-head">
+      <span class="kicker">Hasil Pencapaian</span>
+      <h2>Beberapa pencapaian saya</h2>
+    </div>
+
+    <div class="project-grid">
+
+      <div class="project-card">
+        <div class="project-thumb"><img src="ranking1.jpeg" alt="Ranking 1 Dalam Kelas"></div>
+        <div class="project-body">
+          <span class="project-tag">Akademik</span>
+          <h3>Ranking 1 Dalam Kelas</h3>
+          <p>Saya mendapatkan ranking 1 di kelas X RPL, menunjukkan prestasi akademik yang baik.</p>
+          <a href="#" class="project-link">Lihat detail</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb"><img src="iot_project.jpg" alt="Proyek IOT"></div>
+        <div class="project-body">
+          <span class="project-tag">IOT</span>
+          <h3>Proyek IOT</h3>
+          <p>Saya membuat IOT mobil yang bisa digerakan secara bluetooth melalui aplikasi di hp.</p>
+          <a href="#" class="project-link">Lihat detail</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb"><img src="organisasi.jpg" alt="Kegiatan Organisasi"></div>
+        <div class="project-body">
+          <span class="project-tag">Organisasi</span>
+          <h3>Kegiatan Organisasi</h3>
+          <p>Saya aktif dalam kegiatan organisasi sekolah, seperti menjadi ketua ekstrakurikuler dan mengikuti berbagai lomba.</p>
+          <a href="#" class="project-link">Lihat detail</a>
+        </div>
+      </div>
+
+      <!-- Salin blok .project-card di atas untuk menambah proyek baru -->
+
+    </div>
+  </section>
+
+  <!-- ================= KONTAK ================= -->
+  <section class="section contact" id="kontak">
+    <div class="section-head">
+      <span class="kicker">Mari terhubung</span>
+      <h2>Punya proyek atau pertanyaan?</h2>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <p>Isi form di samping atau hubungi saya langsung lewat salah satu kanal berikut.</p>
+        <ul class="contact-list">
+          <li>
+            <span class="label">Email</span>
+            <a href="mailto:nama@email.com">mukhlish110210@email.com</a>
+          </li>
+          <li>
+            <span class="label">Telepon</span>
+            <a href="tel:+6280000000000">+62 85186100211</a>
+          </li>
+          <li>
+            <span class="label">Kota </span>
+            <span>Tangerang, Indonesia</span>
+          </li>
+        </ul>
+      </div>
+
+      <form id="contactForm" novalidate>
+        <div class="field">
+          <label for="name">Nama</label>
+          <input type="text" id="name" name="name" autocomplete="name" required>
+          <span class="error" id="nameError"></span>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email" required>
+          <span class="error" id="emailError"></span>
+        </div>
+        <div class="field">
+          <label for="message">Pesan</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+          <span class="error" id="messageError"></span>
+        </div>
+        <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Kirim Pesan</button>
+        <p class="form-status" id="formStatus" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span>© <span id="year"></span> Ahmad Mukhlish Nugraha. Seluruh hak cipta dilindungi.</span>
+  <a href="#beranda">Kembali ke atas</a>
+</footer>
+
+<script>
+  // Tahun otomatis di footer
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Nav: bayangan/border saat scroll
+  const nav = document.getElementById('siteNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('is-scrolled', window.scrollY > 12);
+  });
+
+  // Nav: menu mobile
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('is-open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('is-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Nav: highlight bagian aktif saat scroll
+  const sections = document.querySelectorAll('main > section[id]');
+  const navItems = document.querySelectorAll('.nav-links a[data-nav]');
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navItems.forEach(a => {
+          a.classList.toggle('is-active', a.getAttribute('href') === '#' + entry.target.id);
+        });
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  sections.forEach(sec => sectionObserver.observe(sec));
+
+  // Animasi masuk sederhana untuk hero (satu kali saat halaman dimuat)
+  window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.reveal').forEach((el, i) => {
+      setTimeout(() => el.classList.add('is-visible'), 120 * i);
+    });
+  });
+
+  // Validasi form kontak (sisi browser saja — lihat catatan di atas file ini)
+  const form = document.getElementById('contactForm');
+  const status = document.getElementById('formStatus');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let valid = true;
+
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const message = document.getElementById('message');
+
+    const nameError = document.getElementById('nameError');
+    const emailError = document.getElementById('emailError');
+    const messageError = document.getElementById('messageError');
+
+    nameError.textContent = '';
+    emailError.textContent = '';
+    messageError.textContent = '';
+    status.textContent = '';
+
+    if (!name.value.trim()) {
+      nameError.textContent = 'Nama wajib diisi.';
+      valid = false;
+    }
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email.value.trim())) {
+      emailError.textContent = 'Masukkan alamat email yang valid.';
+      valid = false;
+    }
+    if (!message.value.trim()) {
+      messageError.textContent = 'Tulis pesan Anda terlebih dahulu.';
+      valid = false;
+    }
+
+    if (!valid) return;
+
+    // Di sini Anda perlu menghubungkan ke layanan pengiriman email
+    // (mis. Formspree, EmailJS) atau backend Anda sendiri.
+    status.textContent = 'Pesan terkirim! Saya akan segera menghubungi Anda kembali.';
+    form.reset();
+  });
+</script>
+
+</body>
+</html>
